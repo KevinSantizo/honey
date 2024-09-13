@@ -1,1 +1,1 @@
-web: gunicorn honeycomb.wsgi -log-file -
+web: gunicorn honeycomb.wsgi --log-file -
