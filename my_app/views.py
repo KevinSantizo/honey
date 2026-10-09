@@ -1,4 +1,5 @@
 from django.http import HttpResponse, JsonResponse
+import ast
 import time
 import json
 import libhoney
@@ -775,8 +776,7 @@ class GetDiveces(views.APIView):
             status=200,
         )
         
-# Cambiar a la cámara dermatologica 
-
+# Cambiar a la cámara de dermatoscopía
 class SendDermCameraSocketMessage(views.APIView):
     def post(self, request):
         req = json.loads(self.request.body)
@@ -788,3 +788,94 @@ class SendDermCameraSocketMessage(views.APIView):
         send_socket_message(f"{cabin}", message)
         return HttpResponse(json.dumps({'result': True}), content_type='application/json')
     
+    
+#Abrir puerta de la cabina
+class OpenDoorSocketMessage(views.APIView):
+    def post(self, request):
+        req = json.loads(self.request.body)
+        cabin = req['channel']
+
+        open_door_message = {
+            'type': 'command',
+            'vital-sign': 'chapaOff',
+        }
+
+        send_socket_message(f'{cabin}-cmd', open_door_message)
+
+
+        return HttpResponse(json.dumps({'result': True}), content_type='application/json')
+    
+#Cerrar puerta de la cabina
+class CloseDoorSocketMessage(views.APIView):
+    def post(self, request):
+        req = json.loads(self.request.body)
+        cabin = req['channel']
+
+        close_door_message = {
+            'type': 'command',
+            'vital-sign': 'chapaOn',
+        }
+
+        send_socket_message(f'{cabin}-cmd', close_door_message)
+
+        return HttpResponse(json.dumps({'result': True}), content_type='application/json')
+
+#Encender luz de la cabina
+class TurnOnLightSocketMessage(views.APIView):
+    def post(self, request):
+        req = json.loads(self.request.body)
+        cabin = req['channel']
+
+        turn_on_light_message = {
+            'type': 'command',
+            'vital-sign': 'LightsOn',
+        }
+
+        send_socket_message(f'{cabin}-cmd', turn_on_light_message)
+
+        return HttpResponse(json.dumps({'result': True}), content_type='application/json')
+
+#Apagar luz de la cabina
+class TurnOffLightSocketMessage(views.APIView):
+    def post(self, request):
+        req = json.loads(self.request.body)
+        cabin = req['channel']
+
+        turn_off_light_message = {
+            'type': 'command',
+            'vital-sign': 'LightsOff',
+        }
+
+        send_socket_message(f'{cabin}-cmd', turn_off_light_message)
+
+        return HttpResponse(json.dumps({'result': True}), content_type='application/json')
+
+# Encender la ventilación de la cabina
+class TurnOnVentilationSocketMessage(views.APIView):
+    def post(self, request):
+        req = json.loads(self.request.body)
+        cabin = req['channel']
+
+        turn_on_ventilation_message = {
+            'type': 'command',
+            'vital-sign': 'VentOn',
+        }
+
+        send_socket_message(f'{cabin}-cmd', turn_on_ventilation_message)
+
+        return HttpResponse(json.dumps({'result': True}), content_type='application/json')
+
+# Apagar la ventilación de la cabina
+class TurnOffVentilationSocketMessage(views.APIView):
+    def post(self, request):
+        req = json.loads(self.request.body)
+        cabin = req['channel']
+
+        turn_off_ventilation_message = {
+            'type': 'command',
+            'vital-sign': 'VentOff',
+        }
+
+        send_socket_message(f'{cabin}-cmd', turn_off_ventilation_message)
+
+        return HttpResponse(json.dumps({'result': True}), content_type='application/json')
