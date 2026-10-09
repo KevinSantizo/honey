@@ -22,4 +22,10 @@ urlpatterns = [
     path('end-call/', views.EndCallSocketMessage.as_view(), name='end-call'),
     path('get-devices/', views.GetDiveces.as_view(), name='get-devices'),
     path('switch-derm-camera/', views.SendDermCameraSocketMessage.as_view(), name='switch-derm-camera'),
+    path('open-door/', views.OpenDoorSocketMessage.as_view(), name='open-door'),
+    path('close-door/', views.CloseDoorSocketMessage.as_view(), name='close-door'),
+    path('turn-on-light/', views.TurnOnLightSocketMessage.as_view(), name='turn-on-light'),
+    path('turn-off-light/', views.TurnOffLightSocketMessage.as_view(), name='turn-off-light'),
+    path('turn-on-ventilation/', views.TurnOnVentilationSocketMessage.as_view(), name='turn-on-ventilation'),
+    path('turn-off-ventilation/', views.TurnOffVentilationSocketMessage.as_view(), name='turn-off-ventilation'),
 ]
